@@ -47,16 +47,16 @@ export default function ProfileForm({ profile, setProfile }: Props) {
           birthdate: updatedProfile.birthdate
             ? new Date(updatedProfile.birthdate).toISOString()
             : null,
-          photo_profile: updatedProfile.photo_profile, // ✅ sinkron
+          photo_profile: updatedProfile.photo_profile, 
         },
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
 
-      console.log("✅ Profil berhasil diperbarui:", res.data);
+      console.log(" Profil berhasil diperbarui:", res.data);
     } catch (err: any) {
-      console.error("❌ Gagal update profil:", err);
+      console.error(" Gagal update profil:", err);
     } finally {
       setLoading(false);
     }
@@ -65,7 +65,7 @@ export default function ProfileForm({ profile, setProfile }: Props) {
   return (
     <div className="space-y-5">
       {Object.entries(profile).map(([key, value]) =>
-        key === "photo_profile" ? null : ( // ❌ lewati foto di form teks
+        key === "photo_profile" ? null : (
           <div key={key} className="flex flex-col gap-1 group">
             <label className="text-sm font-medium text-gray-600 capitalize">
               {key.replace(/_/g, " ")}

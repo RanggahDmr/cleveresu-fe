@@ -34,12 +34,12 @@ export default function ProfileAvatar({ photo, setPhoto }: Props) {
         },
       });
 
-      console.log("✅ Foto berhasil diupload:", res.data);
+      console.log(" Foto berhasil diupload:", res.data);
       if (res.data?.data?.photo_profile) {
         setPhoto(res.data.data.photo_profile); // Update state global
       }
     } catch (err: any) {
-      console.error("❌ Upload gagal:", err);
+      console.error(" Upload gagal:", err);
     } finally {
       setUploading(false);
     }

@@ -3,6 +3,20 @@
 import { useState } from "react";
 import { Plus, Trash2 } from "lucide-react";
 
+
+//respon BE "id": "94f3d75f-25cb-4da9-9db6-1458b949c5e8",
+            // "user_id": "b2b707c6-38df-4e5c-bc6a-9c57628cc35e",
+            // "start_at": "2025-10-04T13:50:00.000Z",
+            // "end_at": "2025-10-04T13:50:00.000Z",
+            // "place": "SMA Suzuran",
+            // "desc": "Pernah menjadi ketua geng, membunuh raja iblis",
+            // "type": "formal",
+            // "certificate": null,
+            // "created_at": "2025-10-06T03:15:06.566Z",
+            // "updated_at": "2025-10-06T03:15:06.566Z"
+
+            
+
 export default function ExperienceSection() {
   const [experiences, setExperiences] = useState([
     { company: "PT Dumbways Indonesia", position: "Frontend Developer", years: "2023 - 2024" },
@@ -32,19 +46,25 @@ export default function ExperienceSection() {
         className="flex flex-col md:flex-row gap-3 bg-gray-50 p-4 rounded-lg border border-gray-200 mb-6"
       >
         <input
-          placeholder="Company"
+          placeholder="Place"
           value={newExp.company}
           onChange={(e) => setNewExp({ ...newExp, company: e.target.value })}
           className="border rounded-md px-3 py-2 flex-1 text-gray-900 bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none"
         />
         <input
-          placeholder="Position"
+          placeholder="Start at"
+          value={newExp.position}
+          onChange={(e) => setNewExp({ ...newExp, position: e.target.value })}
+          className="border rounded-md px-3 py-2 flex-1 text-gray-900 bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none"
+        /> <br />
+        <input
+          placeholder="End at"
           value={newExp.position}
           onChange={(e) => setNewExp({ ...newExp, position: e.target.value })}
           className="border rounded-md px-3 py-2 flex-1 text-gray-900 bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none"
         />
         <input
-          placeholder="Years"
+          placeholder="desc"
           value={newExp.years}
           onChange={(e) => setNewExp({ ...newExp, years: e.target.value })}
           className="border rounded-md px-3 py-2 flex-1 text-gray-900 bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none"

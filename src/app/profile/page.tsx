@@ -65,8 +65,10 @@ export default function ProfilePage() {
           email: data.email || "",
           desc: data.desc || "",
           birthdate: data.birthdate || "",
-          photo_profile: data.photo_profile || ""
-        };
+          photo_profile: data.photo_profile?.startsWith("http")
+          ?data.photo_profile
+          : `http://localhost:8081/${data.photo_profile}`,
+        }
 
         setProfile(mappedProfile);
       } catch (err: any) {
@@ -103,7 +105,7 @@ export default function ProfilePage() {
             <div className="md:w-1/3 flex flex-col items-center">
               <ProfileAvatar 
                photo={profile.photo_profile}
-              setPhoto={(url) => setProfile({ ...profile, photo_profile: url })}
+               setPhoto={(url) => setProfile({ ...profile, photo_profile: url })}
               />
             </div>
             <div className="md:w-2/3">
