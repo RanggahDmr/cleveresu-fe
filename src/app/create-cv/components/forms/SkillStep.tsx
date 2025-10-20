@@ -25,7 +25,6 @@ export default function SkillStep({ onNext, onPrev }: Props) {
         cv.setSkills(res.data.data || []);
       } catch {
         toast.error("Failed to load skills");
-        
       } finally {
         setLoading(false);
       }
@@ -40,7 +39,21 @@ export default function SkillStep({ onNext, onPrev }: Props) {
     setAdding(true);
     try {
       const res = await api.post("/skill", newSkill);
-      cv.addSkill(res.data.data);
+      const newData = res.data?.data;
+
+      if (newData?.id) {
+        cv.addSkill(res.data.data);
+      } else {
+        const refreshed = await api.get("/skill");
+        cv.setSkills(refreshed.data.data || []);
+      }
+
+      setNewSkill({
+        name: "",
+        type: "",
+        desc: "",
+      });
+
       toast.success("Skill added successfully");
       setNewSkill({ name: "", type: "technical", desc: "" });
     } catch {
@@ -93,8 +106,7 @@ export default function SkillStep({ onNext, onPrev }: Props) {
       {/* === Add New Skill Form === */}
       <form
         onSubmit={handleAdd}
-        className="grid gap-4 mb-8 border-2 border border-gray-300 bg-gray-50 rounded-xl p-5"
-      >
+        className="grid gap-4 mb-8 border-2 border border-gray-300 bg-gray-50 rounded-xl p-5">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <input
             placeholder="Skill Name"
@@ -105,8 +117,7 @@ export default function SkillStep({ onNext, onPrev }: Props) {
           <select
             value={newSkill.type}
             onChange={(e) => setNewSkill({ ...newSkill, type: e.target.value })}
-            className="input-clean bg-white"
-          >
+            className="input-clean bg-white">
             <option value="technical">Technical</option>
             <option value="softskill">Soft Skill</option>
           </select>
@@ -118,11 +129,7 @@ export default function SkillStep({ onNext, onPrev }: Props) {
           className="input-clean bg-white w-full"
           rows={3}
         />
-        <button
-          type="submit"
-          disabled={adding}
-          className="btn-primary w-fit"
-        >
+        <button type="submit" disabled={adding} className="btn-primary w-fit">
           <Plus className="inline w-4 h-4 mr-1" />
           {adding ? "Saving..." : "Add Skill"}
         </button>
@@ -139,19 +146,15 @@ export default function SkillStep({ onNext, onPrev }: Props) {
                 isEditing
                   ? "border-blue-400 bg-blue-50"
                   : "border-gray-200 bg-white hover:shadow-sm"
-              }`}
-            >
+              }`}>
               {/* Header Bar */}
               <div className="flex justify-between items-center mb-3">
                 <h3 className="font-semibold text-gray-800">
                   {skill.name || "Unnamed Skill"}
                 </h3>
                 <button
-                  onClick={() =>
-                    setEditingId(isEditing ? null : skill.id!)
-                  }
-                  className="p-2 rounded-full hover:bg-gray-100 active:scale-95 transition"
-                >
+                  onClick={() => setEditingId(isEditing ? null : skill.id!)}
+                  className="p-2 rounded-full hover:bg-gray-100 active:scale-95 transition">
                   {isEditing ? (
                     <Check className="w-5 h-5 text-blue-600" />
                   ) : (
@@ -165,15 +168,18 @@ export default function SkillStep({ onNext, onPrev }: Props) {
                 <input
                   disabled={!isEditing}
                   value={skill.name}
-                  onChange={(e) => handleUpdate(skill.id!, "name", e.target.value)}
+                  onChange={(e) =>
+                    handleUpdate(skill.id!, "name", e.target.value)
+                  }
                   className="input-clean disabled:bg-transparent"
                 />
                 <select
                   disabled={!isEditing}
                   value={skill.type}
-                  onChange={(e) => handleUpdate(skill.id!, "type", e.target.value)}
-                  className="input-clean disabled:bg-transparent"
-                >
+                  onChange={(e) =>
+                    handleUpdate(skill.id!, "type", e.target.value)
+                  }
+                  className="input-clean disabled:bg-transparent">
                   <option value="technical">Technical</option>
                   <option value="softskill">Soft Skill</option>
                 </select>
@@ -182,7 +188,9 @@ export default function SkillStep({ onNext, onPrev }: Props) {
               <textarea
                 disabled={!isEditing}
                 value={skill.desc || ""}
-                onChange={(e) => handleUpdate(skill.id!, "desc", e.target.value)}
+                onChange={(e) =>
+                  handleUpdate(skill.id!, "desc", e.target.value)
+                }
                 className="input-clean mt-3 disabled:bg-transparent w-full"
                 rows={2}
                 placeholder="Description"
@@ -190,8 +198,7 @@ export default function SkillStep({ onNext, onPrev }: Props) {
 
               <button
                 onClick={() => handleDelete(skill.id)}
-                className="text-red-600 text-sm flex items-center gap-1 mt-3 hover:text-red-700"
-              >
+                className="text-red-600 text-sm flex items-center gap-1 mt-3 hover:text-red-700">
                 <Trash2 className="w-4 h-4" /> Delete
               </button>
             </div>

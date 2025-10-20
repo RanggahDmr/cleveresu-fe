@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 "use client";
 import { useEffect, useState } from "react";
 import { useCvData } from "@/redux/hooks";
@@ -38,10 +39,30 @@ export default function EducationStep({ onNext, onPrev }: Props) {
     e.preventDefault();
     setAdding(true);
     try {
+      let start_at = newEdu.start_at;
+      let end_at = newEdu.end_at;
+
+      newEdu.start_at = new Date(start_at).toISOString();
+      newEdu.end_at = new Date(end_at).toISOString();
+
       const res = await api.post("/education", newEdu);
-      cv.addEducation(res.data.data);
-      toast.success("Added education");
-      setNewEdu({ place: "", type: "formal", start_at: "", end_at: "", desc: "" });
+
+      const newData = res.data?.data;
+
+      if (newData?.id) {
+        cv.addEducation(newData);
+      } else {
+        const refreshed = await api.get("/education");
+        cv.setEducations(refreshed.data.data || []);
+      }
+
+      setNewEdu({
+        place: "",
+        type: "formal",
+        start_at: "",
+        end_at: "",
+        desc: "",
+      });
     } catch {
       toast.error("Failed to add");
     } finally {
@@ -84,7 +105,7 @@ export default function EducationStep({ onNext, onPrev }: Props) {
       <h1 className="text-2xl font-semibold text-gray-800 mb-2">
         Education <span className="text-blue-600">Background</span>
       </h1>
-       <p className="text-gray-500 mb-8 text-sm">
+      <p className="text-gray-500 mb-8 text-sm">
         Manage your work experience. Tap the{" "}
         <Pencil className="inline w-4 h-4 mx-1 text-blue-500" /> icon to edit.
       </p>
@@ -92,8 +113,7 @@ export default function EducationStep({ onNext, onPrev }: Props) {
       {/* === Add New Education Form === */}
       <form
         onSubmit={handleAdd}
-        className="grid gap-4 mb-8 border-2 border border-gray-300 bg-gray-50 rounded-xl p-5"
-      >
+        className="grid gap-4 mb-8 border-2 border border-gray-300 bg-gray-50 rounded-xl p-5">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <input
             placeholder="Institution / School"
@@ -104,8 +124,7 @@ export default function EducationStep({ onNext, onPrev }: Props) {
           <select
             value={newEdu.type}
             onChange={(e) => setNewEdu({ ...newEdu, type: e.target.value })}
-            className="input-clean bg-white"
-          >
+            className="input-clean bg-white">
             <option value="formal">Formal</option>
             <option value="non-formal">Non-Formal</option>
           </select>
@@ -129,11 +148,7 @@ export default function EducationStep({ onNext, onPrev }: Props) {
           className="input-clean bg-white"
           rows={3}
         />
-        <button
-          type="submit"
-          disabled={adding}
-          className="btn-primary w-fit"
-        >
+        <button type="submit" disabled={adding} className="btn-primary w-fit">
           <Plus className="inline w-4 h-4 mr-1" />
           {adding ? "Saving..." : "Add Education"}
         </button>
@@ -150,16 +165,14 @@ export default function EducationStep({ onNext, onPrev }: Props) {
                 isEditing
                   ? "border-blue-400 bg-blue-50"
                   : "border-gray-200 bg-white hover:shadow-sm"
-              }`}
-            >
+              }`}>
               <div className="flex justify-between items-center mb-3">
                 <h3 className="font-semibold text-gray-800">
                   {edu.place || "Unnamed Institution"}
                 </h3>
                 <button
                   onClick={() => setEditingId(isEditing ? null : edu.id!)}
-                  className="p-2 rounded-full hover:bg-gray-100 active:scale-95 transition"
-                >
+                  className="p-2 rounded-full hover:bg-gray-100 active:scale-95 transition">
                   {isEditing ? (
                     <Check className="w-5 h-5 text-blue-600" />
                   ) : (
@@ -183,8 +196,7 @@ export default function EducationStep({ onNext, onPrev }: Props) {
                   onChange={(e) =>
                     handleUpdate(edu.id!, "type", e.target.value)
                   }
-                  className="input-clean disabled:bg-transparent"
-                >
+                  className="input-clean disabled:bg-transparent">
                   <option value="formal">Formal</option>
                   <option value="non-formal">Non-Formal</option>
                 </select>
@@ -218,8 +230,7 @@ export default function EducationStep({ onNext, onPrev }: Props) {
 
               <button
                 onClick={() => handleDelete(edu.id)}
-                className="text-red-600 text-sm flex items-center gap-1 mt-3 hover:text-red-700"
-              >
+                className="text-red-600 text-sm flex items-center gap-1 mt-3 hover:text-red-700">
                 <Trash2 className="w-4 h-4" /> Delete
               </button>
             </div>
