@@ -64,7 +64,7 @@ export default function ProfileAvatar({
         });
       }
     } catch (err: any) {
-      console.error(" Upload gagal:", err.response?.data || err.message);
+      console.error(" Upload gagal karena:", err.response?.data || err.message);
     } finally {
       setUploading(false);
     }

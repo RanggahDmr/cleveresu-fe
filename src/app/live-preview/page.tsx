@@ -93,7 +93,7 @@ export default function LivePreview() {
   };
 
   return (
-    <div className="flex flex-col items-center bg-amber-50 min-h-screen py-10 relative">
+    <div className="flex flex-col items-center bg-gray-200 min-h-screen py-10 relative">
       <div className="shadow-xl border bg-white rounded-md overflow-hidden">
         <iframe
           srcDoc={htmlString}

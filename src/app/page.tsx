@@ -34,8 +34,8 @@ export default function Home() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="text-5xl font-bold text-gray-900 leading-tight"
         >
-          Buat <span className="text-green-600">CV Profesional</span>
-          <br /> dalam hitungan menit
+          Build <span className="text-green-600">Profesional CV</span>
+          <br /> within minutes
         </motion.h1>
 
         <motion.p
@@ -45,8 +45,8 @@ export default function Home() {
           transition={{ delay: 0.2, duration: 0.6, ease: "easeOut" }}
           className="mt-6 text-lg text-gray-600 max-w-2xl"
         >
-          CleveResu membantu kamu membuat CV otomatis yang rapi, modern, dan ATS-friendly.  
-          Tinggal isi data → CV siap dipakai untuk apply kerja.
+         CleveResu helps you create a clean, modern, and ATS-friendly CV automatically.
+          Just fill in your details → your CV is ready to apply for jobs.
         </motion.p>
 
         <motion.div
@@ -60,16 +60,14 @@ export default function Home() {
             onClick={handleClick}
             className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-500 transition-all flex items-center gap-2"
           >
-            Mulai Sekarang <ArrowRight className="w-5 h-5" />
+            Start Now <ArrowRight className="w-5 h-5" />
           </button>
-          <button className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 transition-all">
-            Lihat Demo
-          </button>
+      
         </motion.div>
       </section>
 
       {/* Features Section */}
-      <section id="features" className="container mx-auto px-6 py-20 text-center">
+      <section id="features" className="container mx-auto px-6 py-20 text-center bg-gray-100 max-w-full">
         <motion.h2
           variants={fadeIn}
           initial="hidden"
@@ -78,7 +76,7 @@ export default function Home() {
           transition={{ duration: 0.6 }}
           className="text-3xl font-bold text-gray-900"
         >
-          Kenapa pilih CleveResu?
+          why choose CleveResu?
         </motion.h2>
 
         <motion.p
@@ -89,22 +87,22 @@ export default function Home() {
           transition={{ delay: 0.2, duration: 0.6 }}
           className="mt-4 text-gray-600"
         >
-          Fitur-fitur yang memudahkan kamu bikin CV profesional:
+          Features that make it easy for you to create a professional CV:
         </motion.p>
 
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
           {[
             {
-              title: "Template Modern",
-              desc: "Pilih dari berbagai template CV ATS-friendly yang siap pakai.",
+              title: "ATS Template",
+              desc: "Choose from a variety of ready-to-use, ATS-friendly CV templates.",
             },
             {
-              title: "Mudah & Cepat",
-              desc: "Isi data sekali, CV langsung dibuat otomatis tanpa ribet.",
+              title: "Easy & Fast",
+              desc: "Enter your details once — your CV is automatically generated without any hassle.",
             },
             {
-              title: "Download Instan",
-              desc: "CV bisa langsung di-download dalam format PDF berkualitas tinggi.",
+              title: "Instant Download",
+              desc: "Your CV can be instantly downloaded in a high-quality PDF format.",
             },
           ].map((feature, i) => (
             <motion.div
@@ -121,6 +119,7 @@ export default function Home() {
             </motion.div>
           ))}
         </div>
+        
       </section>
 
       {/* CTA Section */}
@@ -131,9 +130,9 @@ export default function Home() {
         viewport={{ once: true }}
         className="bg-green-600 text-white text-center py-16"
       >
-        <h2 className="text-3xl font-bold">Siap bikin CV yang standout?</h2>
+        <h2 className="text-3xl font-bold">Ready to create a standout CV?</h2>
         <p className="mt-4 text-lg">
-          Gabung bersama ribuan pencari kerja yang sudah memakai CleveResu
+         Join thousands of job seekers who already use CleveResu.
         </p>
         <motion.button
           whileHover={{ scale: 1.05 }}
@@ -141,9 +140,10 @@ export default function Home() {
           onClick={handleClick}
           className="mt-6 px-8 py-3 bg-white text-green-600 font-semibold rounded-lg hover:bg-gray-100 transition-all"
         >
-          Mulai Gratis
+          Start Free
         </motion.button>
       </motion.section>
+      
 
       {/* Footer */}
       <footer className="bg-gray-900 text-gray-400 py-6 text-center text-sm">

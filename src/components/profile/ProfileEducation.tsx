@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useEffect, useState } from "react";
@@ -116,8 +117,6 @@ export default function ProfileEducation() {
     // showSuccess("Saved");
   } catch (err: any) {
     console.error("Error updating education:", err);
-    const msg =
-      err.response?.data?.message || "Gagal memperbarui data pendidikan ❌";
     // showError(msg);
   }
 };
