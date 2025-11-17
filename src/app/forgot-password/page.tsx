@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState } from "react";
@@ -15,7 +16,7 @@ export default function ForgotPasswordPage() {
     setLoading(true);
 
     try {
-      const res = await api.post("/auth/reset-password-for-email", { email });
+      const res = await api.post("/auth/reset", { email });
       toast.success(res.data.message || "Password reset email has been sent!");
       router.push("/login");
     } catch (err: any) {
@@ -30,8 +31,8 @@ export default function ForgotPasswordPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-green-100 px-4">
-      <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md">
-        <h1 className="text-2xl font-semibold mb-4 text-center">Forgot Password</h1>
+      <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md text-black">
+        <h1 className="text-black text-2xl font-semibold mb-4 text-center">Forgot Password</h1>
         <p className="text-sm text-gray-500 mb-6 text-center">
           Enter your email address and we’ll send you a reset link.
         </p>
